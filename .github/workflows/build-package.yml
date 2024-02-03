@@ -116,9 +116,9 @@ jobs:
           sudo rm -r biglinux-key
           sudo pacman -Sy
           
-      # # Tmate ##
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
+      # Tmate ##
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
           
       - name: Update ffmpeg-obs
         shell: bash
@@ -136,7 +136,7 @@ jobs:
           popd
           aurVer=${pkgver}-$pkgrel
           echo "aurVer=$aurVer" >> $GITHUB_ENV
-          
+
           cancel () {
             echo "Sem atualiza de versão"
             echo "SAINDO...."
@@ -146,7 +146,6 @@ jobs:
           }
           
           if [ "$bigVer" != "$aurVer" ];then
-          
             cp -a ffmpeg-obs/* pkgbuild/
             sudo rm -r ffmpeg-obs
             
