@@ -116,9 +116,9 @@ jobs:
           sudo rm -r biglinux-key
           sudo pacman -Sy
           
-      # Tmate ##
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      # # Tmate ##
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
           
       - name: Update ffmpeg-obs
         shell: bash
@@ -129,7 +129,7 @@ jobs:
           repoBigRel=$(pacman -Ss $package | grep "$bigbranch" | grep -v '\-debug' | awk '{print $2}' | sed 's/^.*-//')
           bigVer=${repoBigVer}-$repoBigRel
           
-          rm -r *
+          
           git clone https://aur.archlinux.org/ffmpeg-obs.git
           pushd ffmpeg-obs
           source PKGBUILD
@@ -146,6 +146,7 @@ jobs:
           }
           
           if [ "$bigVer" != "$aurVer" ];then
+            rm -r pkgbuild/*
             cp -a ffmpeg-obs/* pkgbuild/
             sudo rm -r ffmpeg-obs
             
@@ -160,7 +161,6 @@ jobs:
         run: |
           git config --local user.email "${{ secrets.GIT_USER }}@users.noreply.github.com"
           git config --local user.name "${{ secrets.GIT_USER }}"
-          
           if [ -n "$(git commit -m "$aurVer" -a | grep "nothing to commit")" ];then exit 0; fi
 
       - name: Push changes
