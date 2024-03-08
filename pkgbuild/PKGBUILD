@@ -37,22 +37,22 @@ fi
 
 ## Add changes from ffmpeg-libfdk_aac (nonfree option)
 if [[ -z "$FFMPEG_OBS_LIBFDK_AAC" ]]; then
-  FFMPEG_OBS_LIBFDK_AAC=OFF
+  FFMPEG_OBS_LIBFDK_AAC=ON
 fi
 
 ## Add SVT related changes from ffmpeg-full because ffmpeg-svt is out of date
 if [[ -z "$FFMPEG_OBS_SVT" ]]; then
-  FFMPEG_OBS_SVT=OFF
+  FFMPEG_OBS_SVT=ON
 fi
 
 ## Add changes from ffmpeg-vulkan (now only enables libglslang since vulkan is enabled upstream)
 if [[ -z "$FFMPEG_OBS_VULKAN" ]]; then
-  FFMPEG_OBS_VULKAN=OFF
+  FFMPEG_OBS_VULKAN=ON
 fi
 
 pkgname=ffmpeg-obs
 pkgver=6.1.1
-pkgrel=8
+pkgrel=9
 pkgdesc='Complete solution to record, convert and stream audio and video with fixes for OBS Studio. And various options in the PKGBUILD'
 arch=('x86_64' 'aarch64')
 url=https://ffmpeg.org/
@@ -305,7 +305,7 @@ if [[ $CARCH == 'aarch64' ]]; then
 fi
 
 ## Check feature-set options
-_nonfree_enabled=OFF
+_nonfree_enabled=ON
 
 if [[ $FFMPEG_OBS_CUDA == 'ON' ]]; then
   _nonfree_enabled=ON
